@@ -1,0 +1,51 @@
+# Managed by puppet - do not modify
+#
+# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+#
+smtpd_banner = $myhostname ESMTP $mail_name
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+readme_directory = no
+
+# TODO - should this be a generic name for relay hosts?
+myhostname = <%= scope.lookupvar('::fqdn') %>
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+mydomain = <%= scope.lookupvar('postfix::mydomain') %>
+myorigin = $mydomain
+mydestination = <%= scope.lookupvar('::fqdn') -%>, localhost.<%= scope.lookupvar('::domain') -%>, localhost
+<% if scope.lookupvar('postfix::smtp_relay') == true -%>
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 <%= scope.lookupvar('postfix::relay_networks') %>
+inet_interfaces = all
+<% else %>
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+relayhost = <%= scope.lookupvar('postfix::relay_host') %>
+inet_interfaces = loopback-only
+<% end %>
+<% if scope.lookupvar('postfix::relay_domains') != '' -%>
+relay_domains = <%= scope.lookupvar('postfix::relay_domains') %>
+<% end -%>
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_protocols = all
+
+# Allow connections from trusted networks only.
+smtpd_client_restrictions = permit_mynetworks, reject
+
+# Don't talk to mail systems that don't know their own hostname.
+# With Postfix < 2.3, specify reject_unknown_hostname.
+#smtpd_helo_restrictions = reject_unknown_helo_hostname
+
+# Don't accept mail from domains that don't exist.
+#smtpd_sender_restrictions = reject_unknown_sender_domain
+
+# Whitelisting: local clients may specify any destination domain.
+smtpd_recipient_restrictions = permit_mynetworks, reject_unauth_destination
+
+# Block clients that speak too early.
+smtpd_data_restrictions = reject_unauth_pipelining
