@@ -32,7 +32,7 @@ relay_domains = <%= scope.lookupvar('postfix::relay_domains') %>
 <% end -%>
 mailbox_size_limit = 0
 recipient_delimiter = +
-inet_protocols = all
+inet_protocols = ipv4
 
 # Allow connections from trusted networks only.
 smtpd_client_restrictions = permit_mynetworks, reject
