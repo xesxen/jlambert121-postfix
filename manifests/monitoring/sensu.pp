@@ -16,7 +16,7 @@ class postfix::monitoring::sensu {
   # Checking postfix is running
   sensu::check { 'postfix-running':
     handlers  => 'default',
-    command   => '/etc/sensu/plugins/check-procs.rb -p /usr/libexec/postfix/master -w 5',
+    command   => '/etc/sensu/plugins/check-procs.rb -p /usr/libexec/postfix/master -w 5 -c 10',
   }
 
   # Check mailq size
