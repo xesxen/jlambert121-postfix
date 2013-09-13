@@ -31,6 +31,30 @@
 #   String.  Domains this machine will relay mail for.
 #   Default: ''
 #
+# [*relay_username*]
+#   String.  Username for relayhosts that require SMTP AUTH.
+#   Default: ''
+#
+# [*relay_password*]
+#   String.  Password for relayhosts that require SMTP AUTH.
+#   Default: ''
+#
+# [*relay_port*]
+#   String.  Port for relayhosts that require SMTP AUTH.
+#   Default: 25
+#
+# [*tls*]
+#   Boolean.  Enable TLS for SMTP connections.
+#   Default: false
+#
+# [*tls_bundle*]
+#   String.  Path to TLS certificate bundle.
+#   Default: Sensible defaults for RedHat and Debian systems, otherwise false.
+#
+# [*tls_package*]
+#   String.  Package containing TLS certificate bundle..
+#   Default: Sensible defaults for RedHat and Debian systems, otherwise false.
+#
 # [*logging*]
 #   String.  Additonal logging inclusion
 #   Default: ''
@@ -60,17 +84,38 @@
 # Copyright 2013 EvenUp.
 #
 class postfix (
-  $smtp_relay     = false,
-  $relay_host     = $::domain,
-  $mydomain       = $::domain,
-  $relay_networks = '127.0.0.1',
-  $relay_domains  = '',
-  $logging        = '',
-  $monitoring     = '',
-){
+  $smtp_relay     = $postfix::params::smtp_relay,
+  $relay_host     = $postfix::params::relay_host,
+  $mydomain       = $postfix::params::mydomain,
+  $relay_networks = $postfix::params::relay_networks,
+  $relay_domains  = $postfix::params::relay_domains,
+  $relay_username = $postfix::params::relay_username,
+  $relay_password = $postfix::params::relay_password,
+  $relay_port     = $postfix::params::relay_port,
+  $tls            = $postfix::params::tls,
+  $tls_bundle     = $postfix::params::tls_bundle,
+  $tls_package    = $postfix::params::tls_package,
+  $logging        = $postfix::params::logging,
+  $monitoring     = $postfix::params::monitoring,
+) inherits postfix::params {
 
-  class { 'postfix::install': }
-  class { 'postfix::config': }
+  class { 'postfix::install':
+    tls            => $postfix::tls,
+    tls_package    => $postfix::tls_package,
+  }
+  class { 'postfix::config':
+    mydomain       => $postfix::mydomain,
+    smtp_relay     => $postfix::smtp_relay,
+    tls            => $postfix::tls,
+    tls_bundle     => $postfix::tls_bundle,
+    tls_package    => $postfix::tls_package,
+    relay_networks => $postfix::relay_networks,
+    relay_domains  => $postfix::relay_domains,
+    relay_host     => $postfix::relay_host,
+    relay_port     => $postfix::relay_port,
+    relay_username => $postfix::relay_username,
+    relay_password => $postfix::relay_password,
+  }
   class { 'postfix::service': }
 
   case $logging {
