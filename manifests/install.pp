@@ -15,12 +15,12 @@
 class postfix::install {
 
   package { 'sendmail':
-    ensure => absent,
+    ensure  => absent,
+    require => Package['postfix'],
   }
 
   package { 'postfix':
     ensure  => latest,
-    require => Package['sendmail'],
     notify  => Class['postfix::service'],
   }
 
