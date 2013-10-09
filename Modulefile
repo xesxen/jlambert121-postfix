@@ -1,5 +1,5 @@
 name 'evenup-postfix'
-version '0.3.0'
+version '0.4.0'
 author 'Justin Lambert <jlambert@letsevenup.com>'
 license 'Apache'
 summary 'Installs and manages the postfix service.'

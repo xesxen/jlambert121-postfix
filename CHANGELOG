@@ -1,3 +1,4 @@
+v0.4.0 20131009
   Add support for outbound SMTP auth and TLS
   Ensure no MTAs present
 v0.3.0:
