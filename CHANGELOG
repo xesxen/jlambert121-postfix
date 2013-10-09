@@ -1,3 +1,4 @@
+  Add support for outbound SMTP auth and TLS
   Ensure no MTAs present
 v0.3.0:
   Limit to IPV4 only
