@@ -12,7 +12,10 @@
 #
 # Copyright 2013 EvenUp.
 #
-class postfix::install {
+class postfix::install (
+  $tls,
+  $tls_package
+) {
 
   package { 'sendmail':
     ensure  => absent,
@@ -24,4 +27,9 @@ class postfix::install {
     notify  => Class['postfix::service'],
   }
 
+  if ( $postfix::install::tls and $postfix::install::tls_package ) {
+    package { $postfix::install::tls_package:
+      ensure => latest,
+    }
+  }
 }
