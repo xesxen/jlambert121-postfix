@@ -13,24 +13,39 @@
 # Copyright 2013 EvenUp.
 #
 class postfix::config (
-  $mydomain,
-  $smtp_relay,
-  $tls,
-  $tls_bundle,
-  $tls_package,
-  $relay_networks,
-  $relay_domains,
-  $relay_host,
-  $relay_port,
-  $relay_username,
-  $relay_password
+  $mydomain                     = $postfix::mydomain,
+  $smtp_relay                   = $postfix::smtp_relay,
+  $tls                          = $postfix::tls,
+  $tls_bundle                   = $postfix::tls_bundle,
+  $tls_package                  = $postfix::tls_package,
+  $relay_networks               = $postfix::relay_networks,
+  $relay_domains                = $postfix::relay_domains,
+  $relay_host                   = $postfix::relay_host,
+  $relay_port                   = $postfix::relay_port,
+  $relay_username               = $postfix::relay_username,
+  $relay_password               = $postfix::relay_password,
+  $master_config_services       = [],
+  $main_options_hash            = hash([]),
+  $smtpd_client_restrictions    = 'permit_mynetworks, reject',
+  $smtpd_helo_restrictions      = undef,
+  $smtpd_sender_restrictions    = undef,
+  $smtpd_recipient_restrictions = 'permit_mynetworks, reject_unauth_destination',
+  $smtpd_data_restrictions      = 'reject_unauth_pipelining'
 ) {
+
+  validate_array($master_config_services)
+  validate_hash($main_options_hash)
+  validate_string($smtpd_client_restrictions)
+  validate_string($smtpd_helo_restrictions)
+  validate_string($smtpd_sender_restrictions)
+  validate_string($smtpd_recipient_restrictions)
+  validate_string($smtpd_data_restrictions)
 
   file { '/etc/postfix/master.cf':
     owner   => root,
     group   => root,
     mode    => '0444',
-    source  => 'puppet:///modules/postfix/master.cf',
+    content => template('postfix/master.cf.erb'),
     notify  => Class['postfix::service'],
   }
 
