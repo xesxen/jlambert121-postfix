@@ -48,5 +48,7 @@ lmtp      unix  -       -       n       -       -       lmtp
 anvil     unix  -       -       n       -       1       anvil
 scache    unix  -       -       n       -       1       scache
 
+<% if @master_config_services and ! @master_config_services.empty? -%>
 # Include additional services defined by the postfix::config class.
 <% @master_config_services.each do |service| %><%= service %><% end %>
+<% end -%>
