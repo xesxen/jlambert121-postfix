@@ -84,20 +84,47 @@
 # Copyright 2013 EvenUp.
 #
 class postfix (
-  $smtp_relay     = $postfix::params::smtp_relay,
-  $relay_host     = $postfix::params::relay_host,
-  $mydomain       = $postfix::params::mydomain,
-  $relay_networks = $postfix::params::relay_networks,
-  $relay_domains  = $postfix::params::relay_domains,
-  $relay_username = $postfix::params::relay_username,
-  $relay_password = $postfix::params::relay_password,
-  $relay_port     = $postfix::params::relay_port,
-  $tls            = $postfix::params::tls,
-  $tls_bundle     = $postfix::params::tls_bundle,
-  $tls_package    = $postfix::params::tls_package,
-  $logging        = $postfix::params::logging,
-  $monitoring     = $postfix::params::monitoring,
+  $smtp_relay                   = $postfix::params::smtp_relay,
+  $relay_host                   = $postfix::params::relay_host,
+  $mydomain                     = $postfix::params::mydomain,
+  $relay_networks               = $postfix::params::relay_networks,
+  $relay_domains                = $postfix::params::relay_domains,
+  $relay_username               = $postfix::params::relay_username,
+  $relay_password               = $postfix::params::relay_password,
+  $relay_port                   = $postfix::params::relay_port,
+  $tls                          = $postfix::params::tls,
+  $tls_bundle                   = $postfix::params::tls_bundle,
+  $tls_package                  = $postfix::params::tls_package,
+  $logging                      = $postfix::params::logging,
+  $monitoring                   = $postfix::params::monitoring,
+  $master_config_services       = $postfix::params::master_config_services,
+  $main_options_hash            = $postfix::params::main_options_hash,
+  $smtpd_client_restrictions    = $postfix::params::smtpd_client_restrictions,
+  $smtpd_helo_restrictions      = $postfix::params::smtpd_helo_restrictions,
+  $smtpd_sender_restrictions    = $postfix::params::smtpd_sender_restrictions,
+  $smtpd_recipient_restrictions = $postfix::params::smtpd_recipient_restrictions,
+  $smtpd_data_restrictions      = $postfix::params::smtpd_data_restrictions,
 ) inherits postfix::params {
+
+  validate_bool($smtp_relay)
+  validate_string($relay_host)
+#  validate_num($relay_port)
+  validate_string($mydomain)
+  validate_string($relay_networks)
+  validate_string($relay_domains)
+  validate_string($relay_username)
+  validate_string($relay_password)
+  validate_bool($tls)
+  validate_string($logging)
+  validate_string($monitoring)
+  validate_array($master_config_services)
+  validate_hash($main_options_hash)
+  validate_string($smtpd_client_restrictions)
+  validate_string($smtpd_helo_restrictions)
+  validate_string($smtpd_sender_restrictions)
+  validate_string($smtpd_recipient_restrictions)
+  validate_string($smtpd_data_restrictions)
+
 
   class { 'postfix::install':
     tls            => $postfix::tls,

@@ -63,5 +63,7 @@ smtpd_recipient_restrictions = <%= @smtpd_recipient_restrictions %>
 # Block clients that speak too early.
 smtpd_data_restrictions = <%= @smtpd_data_restrictions %>
 
+<% if @main_options_hash and ! @main_options_hash.empty? -%>
 <% @main_options_hash.each do |option,value| %>
+<% end -%>
 <%= option %> = <%= value %> <% end %>

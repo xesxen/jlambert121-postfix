@@ -24,22 +24,14 @@ class postfix::config (
   $relay_port                   = $postfix::relay_port,
   $relay_username               = $postfix::relay_username,
   $relay_password               = $postfix::relay_password,
-  $master_config_services       = [],
-  $main_options_hash            = hash([]),
-  $smtpd_client_restrictions    = 'permit_mynetworks, reject',
-  $smtpd_helo_restrictions      = undef,
-  $smtpd_sender_restrictions    = undef,
-  $smtpd_recipient_restrictions = 'permit_mynetworks, reject_unauth_destination',
-  $smtpd_data_restrictions      = 'reject_unauth_pipelining'
+  $master_config_services       = $postfix::master_config_services,
+  $main_options_hash            = $postfix::main_options_hash,
+  $smtpd_client_restrictions    = $postfix::smtpd_client_restrictions,
+  $smtpd_helo_restrictions      = $postfix::smtpd_helo_restrictions,
+  $smtpd_sender_restrictions    = $postfix::smtpd_sender_restrictions,
+  $smtpd_recipient_restrictions = $postfix::smtpd_recipient_restrictions,
+  $smtpd_data_restrictions      = $postfix::smtpd_data_restrictions,
 ) {
-
-  validate_array($master_config_services)
-  validate_hash($main_options_hash)
-  validate_string($smtpd_client_restrictions)
-  validate_string($smtpd_helo_restrictions)
-  validate_string($smtpd_sender_restrictions)
-  validate_string($smtpd_recipient_restrictions)
-  validate_string($smtpd_data_restrictions)
 
   file { '/etc/postfix/master.cf':
     owner   => root,
