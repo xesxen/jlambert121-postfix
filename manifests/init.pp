@@ -60,11 +60,6 @@
 #   Default: ''
 #   Valid values: '', beaver
 #
-# [*monitoring*]
-#   String.  What monitoring to include
-#   Default: ''
-#   Valid values: '', sensu
-#
 #
 # === Examples
 #
@@ -96,7 +91,6 @@ class postfix (
   $tls_bundle                   = $postfix::params::tls_bundle,
   $tls_package                  = $postfix::params::tls_package,
   $logging                      = $postfix::params::logging,
-  $monitoring                   = $postfix::params::monitoring,
   $master_config_services       = $postfix::params::master_config_services,
   $main_options_hash            = $postfix::params::main_options_hash,
   $smtpd_client_restrictions    = $postfix::params::smtpd_client_restrictions,
@@ -116,7 +110,6 @@ class postfix (
   validate_string($relay_password)
   validate_bool($tls)
   validate_string($logging)
-  validate_string($monitoring)
   validate_array($master_config_services)
   validate_hash($main_options_hash)
   validate_string($smtpd_client_restrictions)
@@ -148,13 +141,6 @@ class postfix (
   case $logging {
     'beaver': {
       include postfix::logging::beaver
-    }
-    default: {}
-  }
-
-  case $monitoring {
-    'sensu':  {
-      include postfix::monitoring::sensu
     }
     default: {}
   }
