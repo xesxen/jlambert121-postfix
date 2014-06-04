@@ -10,7 +10,7 @@ describe 'postfix', :type => :class do
 
   context 'logging' do
     let(:params) { { :logging => 'beaver' } }
-    it { should include_class('postfix::logging::beaver') }
+    it { should contain_class('postfix::logging::beaver') }
   end
 
 end
