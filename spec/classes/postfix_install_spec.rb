@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'postfix::install', :type => :class do
-  let(:title) { 'postfix' }
+  let(:facts) { { :osfamily => 'RedHat' } }
 
   describe 'default' do
     let(:params) { {
