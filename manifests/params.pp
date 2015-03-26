@@ -6,13 +6,12 @@ class postfix::params {
   $relay_host                   = $::domain
   $mydomain                     = $::domain
   $relay_networks               = '127.0.0.1'
-  $relay_domains                = ''
-  $relay_username               = ''
-  $relay_password               = ''
+  $relay_domains                = undef
+  $relay_username               = undef
+  $relay_password               = undef
   $relay_port                   = 25
   $tls                          = false
-  $logging                      = ''
-  $monitoring                   = ''
+  $logging                      = undef
   $master_config_services       = []
   $main_options_hash            = hash([])
   $smtpd_client_restrictions    = 'permit_mynetworks, reject'

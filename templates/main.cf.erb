@@ -27,10 +27,10 @@ mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 relayhost = <%= @relay_host -%>:<%= @relay_port %>
 inet_interfaces = loopback-only
 <% end %>
-<% if @relay_domains != '' -%>
+<% if @relay_domains -%>
 relay_domains = <%= @relay_domains %>
 <% end -%>
-<% if @relay_username != '' and @relay_password != '' -%>
+<% if @relay_username and @relay_password -%>
 smtp_sasl_auth_enable = yes
 smtp_sasl_security_options = noanonymous
 smtp_sasl_password_maps = hash:/etc/postfix/relay_password

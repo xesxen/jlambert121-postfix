@@ -23,8 +23,8 @@ class postfix::install (
   }
 
   package { 'postfix':
-    ensure  => latest,
-    notify  => Class['postfix::service'],
+    ensure => latest,
+    notify => Class['postfix::service'],
   }
 
   if ( $postfix::install::tls and $postfix::install::tls_package ) {

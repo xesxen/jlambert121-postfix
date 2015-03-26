@@ -49,7 +49,7 @@ class postfix::config (
     notify  => Class['postfix::service'],
   }
 
-  if ( $postfix::config::relay_username != '' and $postfix::config::relay_password != '' ) {
+  if ( $relay_username and $relay_password ) {
     file { '/etc/postfix/relay_password':
       owner   => root,
       group   => root,

@@ -2,7 +2,7 @@
   "name": "evenup-postfix",
   "version": "0.7.0",
   "author": "Justin Lambert <jlambert@letsevenup.com>",
-  "license": "Licensed under Apache 2.0",
+  "license": "Apache-2.0",
   "summary": "Installs and manages the postfix service",
   "source": "https://github.com/evenup/evenup-postfix",
   "project_page": "https://github.com/evenup/evenup-postfix",
