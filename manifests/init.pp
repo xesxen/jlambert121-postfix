@@ -119,11 +119,11 @@ class postfix (
   validate_string($smtpd_data_restrictions)
 
 
-  class { 'postfix::install':
-    tls            => $postfix::tls,
-    tls_package    => $postfix::tls_package,
+  class { '::postfix::install':
+    tls         => $postfix::tls,
+    tls_package => $postfix::tls_package,
   }
-  class { 'postfix::config':
+  class { '::postfix::config':
     mydomain       => $postfix::mydomain,
     smtp_relay     => $postfix::smtp_relay,
     tls            => $postfix::tls,
@@ -136,20 +136,20 @@ class postfix (
     relay_username => $postfix::relay_username,
     relay_password => $postfix::relay_password,
   }
-  class { 'postfix::service': }
+  class { '::postfix::service': }
 
   case $logging {
     'beaver': {
-      include postfix::logging::beaver
+      include ::postfix::logging::beaver
     }
     default: {}
   }
 
   # Containment
-  anchor { 'postfix::begin': } ->
+  anchor { '::postfix::begin': } ->
   Class['postfix::install'] ->
   Class['postfix::config'] ->
   Class['postfix::service'] ->
-  anchor { 'postfix::end': }
+  anchor { '::postfix::end': }
 
 }

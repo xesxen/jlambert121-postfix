@@ -14,8 +14,8 @@
 class postfix::logging::beaver {
 
   beaver::stanza { '/var/log/maillog':
-    type    => 'syslog',
-    tags    => ['maillog', $::disposition],
+    type => 'syslog',
+    tags => ['maillog', $::disposition],
   }
 
 }
