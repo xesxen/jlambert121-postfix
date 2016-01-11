@@ -7,10 +7,4 @@ describe 'postfix', :type => :class do
   it { should contain_class('postfix::install') }
   it { should contain_class('postfix::config') }
   it { should contain_class('postfix::service') }
-
-  context 'logging' do
-    let(:params) { { :logging => 'beaver' } }
-    it { should contain_class('postfix::logging::beaver') }
-  end
-
 end

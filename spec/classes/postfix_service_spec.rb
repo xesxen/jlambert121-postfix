@@ -5,5 +5,4 @@ describe 'postfix::service', :type => :class do
 
   it { should create_class('postfix::service') }
   it { should contain_service('postfix') }
-
 end

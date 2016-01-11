@@ -1,10 +1,7 @@
 fixtures:
   forge_modules:
-    beaver: "evenup/beaver"
-    concat: "puppetlabs/concat"
     stdlib:
       repo: "puppetlabs/stdlib"
-      ref: "3.2.0"
-    sensu: "sensu/sensu"
+      ref: "4.2.0"
   symlinks:
     postfix: "#{source_dir}"

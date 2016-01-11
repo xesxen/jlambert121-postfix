@@ -11,9 +11,8 @@ class postfix::params {
   $relay_password               = undef
   $relay_port                   = 25
   $tls                          = false
-  $logging                      = undef
   $master_config_services       = []
-  $main_options_hash            = hash([])
+  $main_options_hash            = {}
   $smtpd_client_restrictions    = 'permit_mynetworks, reject'
   $smtpd_helo_restrictions      = undef
   $smtpd_sender_restrictions    = undef

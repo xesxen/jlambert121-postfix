@@ -55,11 +55,6 @@
 #   String.  Package containing TLS certificate bundle..
 #   Default: Sensible defaults for RedHat and Debian systems, otherwise false.
 #
-# [*logging*]
-#   String.  Additonal logging inclusion
-#   Default: ''
-#   Valid values: '', beaver
-#
 #
 # === Examples
 #
@@ -90,7 +85,6 @@ class postfix (
   $tls                          = $postfix::params::tls,
   $tls_bundle                   = $postfix::params::tls_bundle,
   $tls_package                  = $postfix::params::tls_package,
-  $logging                      = $postfix::params::logging,
   $master_config_services       = $postfix::params::master_config_services,
   $main_options_hash            = $postfix::params::main_options_hash,
   $smtpd_client_restrictions    = $postfix::params::smtpd_client_restrictions,
@@ -109,7 +103,6 @@ class postfix (
   validate_string($relay_username)
   validate_string($relay_password)
   validate_bool($tls)
-  validate_string($logging)
   validate_array($master_config_services)
   validate_hash($main_options_hash)
   validate_string($smtpd_client_restrictions)
@@ -118,38 +111,9 @@ class postfix (
   validate_string($smtpd_recipient_restrictions)
   validate_string($smtpd_data_restrictions)
 
-
-  class { '::postfix::install':
-    tls         => $postfix::tls,
-    tls_package => $postfix::tls_package,
-  }
-  class { '::postfix::config':
-    mydomain       => $postfix::mydomain,
-    smtp_relay     => $postfix::smtp_relay,
-    tls            => $postfix::tls,
-    tls_bundle     => $postfix::tls_bundle,
-    tls_package    => $postfix::tls_package,
-    relay_networks => $postfix::relay_networks,
-    relay_domains  => $postfix::relay_domains,
-    relay_host     => $postfix::relay_host,
-    relay_port     => $postfix::relay_port,
-    relay_username => $postfix::relay_username,
-    relay_password => $postfix::relay_password,
-  }
+  class { '::postfix::install': } ->
+  class { '::postfix::config': } ~>
   class { '::postfix::service': }
-
-  case $logging {
-    'beaver': {
-      include ::postfix::logging::beaver
-    }
-    default: {}
-  }
-
-  # Containment
-  anchor { '::postfix::begin': } ->
-  Class['postfix::install'] ->
-  Class['postfix::config'] ->
-  Class['postfix::service'] ->
-  anchor { '::postfix::end': }
+  Class['postfix::install'] ~> Class['postfix::service']
 
 }

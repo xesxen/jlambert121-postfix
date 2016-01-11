@@ -1,11 +1,13 @@
 require 'spec_helper_acceptance'
 
 describe 'postfix classes' do
-
   context 'defaults' do
     it 'should work idempotently with no errors' do
       pp = <<-EOS
-      class { 'postfix': }
+      class { 'postfix':
+        relay_host => 'example.com',
+        mydomain   => 'example.com',
+      }
       EOS
 
       # Run it twice and test for idempotency
@@ -29,7 +31,5 @@ describe 'postfix classes' do
     describe port(25) do
       it { should be_listening }
     end
-
   end
-
 end

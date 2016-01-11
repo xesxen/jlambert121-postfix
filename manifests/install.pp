@@ -13,8 +13,8 @@
 # Copyright 2013 EvenUp.
 #
 class postfix::install (
-  $tls,
-  $tls_package
+  $tls         = $::postfix::tls,
+  $tls_package = $::postfix::tls_package,
 ) {
 
   package { 'sendmail':
