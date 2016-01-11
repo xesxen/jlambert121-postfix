@@ -2,16 +2,6 @@
 #
 # Configures postfix.  Not intended to be called directly
 #
-#
-# === Authors
-#
-# * Justin Lambert <mailto:jlambert@letsevenup.com>
-#
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
 class postfix::config (
   $mydomain                     = $::postfix::mydomain,
   $smtp_relay                   = $::postfix::smtp_relay,

@@ -64,15 +64,6 @@
 #   }
 #
 #
-# === Authors
-#
-# * Justin Lambert <mailto:jlambert@letsevenup.com>
-#
-#
-# === Copyright
-#
-# Copyright 2013 EvenUp.
-#
 class postfix (
   $smtp_relay                   = $postfix::params::smtp_relay,
   $relay_host                   = $postfix::params::relay_host,
@@ -115,5 +106,7 @@ class postfix (
   class { '::postfix::config': } ~>
   class { '::postfix::service': }
   Class['postfix::install'] ~> Class['postfix::service']
+
+  include ::postfix::newaliases
 
 }

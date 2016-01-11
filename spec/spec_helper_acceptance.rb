@@ -23,9 +23,6 @@ RSpec.configure do |c|
       # Install module and dependencies
       copy_module_to(host, :source => proj_root, :module_name => 'postfix')
 
-      on host, puppet('module', 'install', 'puppetlabs/concat'), { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module', 'install', 'evenup/beaver'), { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module', 'install', 'sensu/sensu'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module', 'install', 'puppetlabs/stdlib'), { :acceptable_exit_codes => [0,1] }
     end
   end

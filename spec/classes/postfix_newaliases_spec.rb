@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'postfix::service' do
+describe 'postfix::newaliases' do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os}" do
@@ -9,10 +9,10 @@ describe 'postfix::service' do
         end
 
         context "default" do
-          it { should create_class('postfix::service') }
-          it { should contain_service('postfix') }
+          it { should create_class('postfix::newaliases') }
+          it { should contain_exec('newaliases') }
         end
       end # on #{os}
     end # on_supported_os.each
   end # supported operating systems
-end # postfix::service
+end # postfix::newalises

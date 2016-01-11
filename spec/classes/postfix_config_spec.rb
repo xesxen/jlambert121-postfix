@@ -1,25 +1,19 @@
 require 'spec_helper'
 
-describe 'postfix::config', :type => :class do
-  let(:facts) { { :osfamily => 'RedHat' } }
+describe 'postfix::config' do
+  context 'supported operating systems' do
+    on_supported_os.each do |os, facts|
+      context "on #{os}" do
+        let(:facts) do
+          facts.merge( {:concat_basedir => '/tmp'} )
+        end
 
-  let(:params) do
-    {
-      :mydomain       => "example.tld",
-      :smtp_relay     => false,
-      :tls            => true,
-      :tls_bundle     => "/etc/ssl/certs/ca-certificates.crt",
-      :tls_package    => "ca-certificates",
-      :relay_networks => "127.0.0.1",
-      :relay_domains  => "example.tld",
-      :relay_host     => "mail.example.tld",
-      :relay_port     => "25",
-      :relay_username => "username",
-      :relay_password => "password",
-    }
-  end
-
-  it { should create_class('postfix::config') }
-  it { should contain_file('/etc/postfix/master.cf') }
-  it { should contain_file('/etc/postfix/main.cf') }
-end
+        context "default" do
+          it { should create_class('postfix::config') }
+          it { should contain_file('/etc/postfix/master.cf') }
+          it { should contain_file('/etc/postfix/main.cf') }
+        end
+      end # on #{os}
+    end # on_supported_os.each
+  end # supported operating systems
+end # postfix::config
