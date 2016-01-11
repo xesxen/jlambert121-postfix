@@ -1,6 +1,6 @@
 {
   "name": "jlambert121-postfix",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "author": "Justin Lambert <jlambert@eml.com>",
   "license": "Apache-2.0",
   "summary": "Installs and manages the postfix service",
