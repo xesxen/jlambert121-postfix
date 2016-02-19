@@ -154,7 +154,7 @@ Default: 'reject_unauth_pipelining'
 
 ### Private classes
 
-#### Class: `postfix::cofing`
+#### Class: `postfix::config`
 
 Writes the postfix configuration
 
