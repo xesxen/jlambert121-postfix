@@ -3,6 +3,7 @@
 # Configures postfix.  Not intended to be called directly
 #
 class postfix::config (
+  $fqdn                         = $::postfix::fqdn,
   $mydomain                     = $::postfix::mydomain,
   $smtp_relay                   = $::postfix::smtp_relay,
   $tls                          = $::postfix::tls,
