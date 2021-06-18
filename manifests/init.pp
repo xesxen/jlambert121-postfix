@@ -67,6 +67,7 @@
 class postfix (
   $smtp_relay                   = $postfix::params::smtp_relay,
   $relay_host                   = $postfix::params::relay_host,
+  $fqdn                         = $postfix::params::fqdn,
   $mydomain                     = $postfix::params::mydomain,
   $relay_networks               = $postfix::params::relay_networks,
   $relay_domains                = $postfix::params::relay_domains,
@@ -88,6 +89,7 @@ class postfix (
   validate_bool($smtp_relay)
   validate_string($relay_host)
 #  validate_num($relay_port)
+  validate_string($fqdn)
   validate_string($mydomain)
   validate_string($relay_networks)
   validate_string($relay_domains)

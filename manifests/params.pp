@@ -4,6 +4,7 @@
 class postfix::params {
   $smtp_relay                   = false
   $relay_host                   = undef
+  $fqdn                         = $::fqdn
   $mydomain                     = $::domain
   $relay_networks               = '127.0.0.1'
   $relay_domains                = undef
